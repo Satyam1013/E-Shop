@@ -1,0 +1,61 @@
+import { Route, Routes } from "react-router-dom";
+import Cart from "../pages/authorized page/Cart";
+import Homepage from "../pages/Homepage";
+import Login from "../pages/authentication/Login";
+import MenProductPage from "../pages/product pages/MenProductPage";
+import WomenProductPage from "../pages/product pages/WomenProductPage";
+import Signup from "../pages/authentication/Signup";
+import KidProductPage from "../pages/product pages/KidProductPage";
+import ElectronicsPage from "../pages/product pages/ElectronicsPage";
+import SingleMenProductPage from "../pages/detailed product page/SingleMenProductPage";
+import SingleWomenProductPage from "../pages/detailed product page/SingleWomenProductPage";
+import SingleKidsProductPage from "../pages/detailed product page/SingleKidsPage";
+import SingleElectronicsPage from "../pages/detailed product page/SingleElectronicsPage";
+import AboutUs from "../pages/AboutUs";
+import CheckoutPage from "../pages/authorized page/CheckoutPage";
+import AdminPanel from "../admin/Main Page/AdminPanel";
+import PrivateRoute from "./PrivateRoute";
+import { NotFound } from "../pages/NotFound";
+import AdminLogin from "../admin/AdminLogin";
+
+const MainRoutes = () => {
+  const secretRouteKey = process.env.REACT_APP_ROUTE_KEY;
+
+  return (
+    <Routes>
+      <Route path={"/"} element={<Homepage />} />
+      <Route
+        path={"/cart"}
+        element={
+          <PrivateRoute>
+            <Cart />
+          </PrivateRoute>
+        }
+      />
+      <Route path={"/sign_up"} element={<Signup />} />
+      <Route path={"/login"} element={<Login />} />
+      <Route path={"/about"} element={<AboutUs />} />
+      <Route path={"/mens"} element={<MenProductPage />} />
+      <Route path={"/mens/:id"} element={<SingleMenProductPage />} />
+      <Route path={"/womens"} element={<WomenProductPage />} />
+      <Route path={"/womens/:id"} element={<SingleWomenProductPage />} />
+      <Route path={"/kids"} element={<KidProductPage />} />
+      <Route path={"/kids/:id"} element={<SingleKidsProductPage />} />
+      <Route path={"/electronics"} element={<ElectronicsPage />} />
+      <Route path={"/electronics/:id"} element={<SingleElectronicsPage />} />
+      <Route
+        path={"/checkout"}
+        element={
+          <PrivateRoute>
+            <CheckoutPage />
+          </PrivateRoute>
+        }
+      />
+      <Route path={"/admin_login"} element={<AdminLogin />} />
+      <Route path={`/admin_panel/${secretRouteKey}`} element={<AdminPanel />} />
+      <Route path={"*"} element={<NotFound />} />
+    </Routes>
+  );
+};
+
+export default MainRoutes;
