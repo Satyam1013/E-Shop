@@ -83,7 +83,7 @@ const MenProductPage = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://lazy-erin-frog-slip.cyclic.app//mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
+          `https://long-tie-tick.cyclic.app///mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
         );
         console.log(res.data);
         setData(res.data.men);

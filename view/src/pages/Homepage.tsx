@@ -45,7 +45,7 @@ const Homepage = () => {
   const getData = async () => {
     setLoad(true);
     try {
-      const data = await fetch("https://lazy-erin-frog-slip.cyclic.app//homes");
+      const data = await fetch("https://long-tie-tick.cyclic.app///homes");
       const res = await data.json();
       setMen(res[0].Mens);
       setWomen(res[0].womens);

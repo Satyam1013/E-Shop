@@ -29,7 +29,7 @@ const WomenProductPage = () => {
     setLoading(true);
     await axios
       .get(
-        `https://lazy-erin-frog-slip.cyclic.app//womens?page=${page}&limit=${limit}&category=${category}&sort=${order},${sortPrice}&search=${search}`
+        `https://long-tie-tick.cyclic.app///womens?page=${page}&limit=${limit}&category=${category}&sort=${order},${sortPrice}&search=${search}`
       )
       .then((res: AxiosResponse) => {
         console.log(res.data);

@@ -96,7 +96,7 @@ export default function AddProduct({ route, category }: any) {
       alert("Choose Category First!");
     } else {
       try {
-        const res = await fetch(`https://lazy-erin-frog-slip.cyclic.app//${route}/post`, {
+        const res = await fetch(`https://long-tie-tick.cyclic.app///${route}/post`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

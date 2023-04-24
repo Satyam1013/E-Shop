@@ -30,7 +30,7 @@ export default function SingleElectronicsPage() {
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const res = await fetch(`https://lazy-erin-frog-slip.cyclic.app//electronics/${id}`);
+      const res = await fetch(`https://long-tie-tick.cyclic.app///electronics/${id}`);
       const data = await res.json();
       setData(data);
       setLoading(false);
@@ -42,7 +42,7 @@ export default function SingleElectronicsPage() {
     const payload = data;
     if (isAuthenticated) {
       if (data?.availability !== "Currently unavailable") {
-        fetch("https://lazy-erin-frog-slip.cyclic.app//carts/post", {
+        fetch("https://long-tie-tick.cyclic.app///carts/post", {
           method: "POST",
           headers: {
             Authorization: `${localStorage.getItem("e-book token")}`,

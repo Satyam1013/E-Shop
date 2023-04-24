@@ -32,7 +32,7 @@ export default function SingleMenProductPage() {
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const res = await fetch(`https://lazy-erin-frog-slip.cyclic.app//mens/${id}`);
+      const res = await fetch(`https://long-tie-tick.cyclic.app///mens/${id}`);
       const data = await res.json();
       setData(data);
       setLoading(false);
@@ -44,7 +44,7 @@ export default function SingleMenProductPage() {
     const payload = data;
     if (isAuthenticated) {
       if (data?.availability !== "Currently unavailable") {
-        fetch("https://lazy-erin-frog-slip.cyclic.app//carts/post", {
+        fetch("https://long-tie-tick.cyclic.app///carts/post", {
           method: "POST",
           headers: {
             Authorization: `${localStorage.getItem("e-book token")}`,

@@ -35,7 +35,7 @@ export default function Signup() {
       mobile,
     };
 
-    fetch("https://lazy-erin-frog-slip.cyclic.app//users/register", {
+    fetch("https://long-tie-tick.cyclic.app///users/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

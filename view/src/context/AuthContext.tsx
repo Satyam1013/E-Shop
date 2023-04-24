@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       password,
     };
     try {
-      const res = await fetch("https://lazy-erin-frog-slip.cyclic.app//users/login", {
+      const res = await fetch("https://long-tie-tick.cyclic.app///users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

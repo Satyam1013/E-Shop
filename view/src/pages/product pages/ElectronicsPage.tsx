@@ -41,7 +41,7 @@ const ElectronicsPage = () => {
     setLoading(true);
     await axios
       .get(
-        `https://lazy-erin-frog-slip.cyclic.app//electronics?page=${page}&limit=${limit}&category=${category}&brand=${brand}&sort=${order},${sortPrice}&search=${search}`
+        `https://long-tie-tick.cyclic.app///electronics?page=${page}&limit=${limit}&category=${category}&brand=${brand}&sort=${order},${sortPrice}&search=${search}`
       )
       .then((res: AxiosResponse) => {
         console.log(res.data);
