@@ -4,7 +4,7 @@ E-Shop is an online e-commerce website that specializes in selling products for 
 
 <h2>Getting Started</h2>
 <hr/>
-To access E-Shop's website, simply visit our homepage at www.eshop.com. Customers can browse and search for products by entering keywords in the search bar or by browsing different categories available on the website.
+To access E-Shop's website, simply visit our homepage at https://eshop-vert.vercel.app/. Customers can browse and search for products by entering keywords in the search bar or by browsing different categories available on the website.
 
 <h2>Features</h2>
 <hr/>
