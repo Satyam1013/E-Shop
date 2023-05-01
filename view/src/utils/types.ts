@@ -91,6 +91,7 @@ export interface AuthContextType {
   email: string;
   password: string;
   error: string;
+  loading: boolean;
   setEmail: Dispatch<SetStateAction<string>>;
   setPassword: Dispatch<SetStateAction<string>>;
 }

@@ -16,7 +16,7 @@ const Users = () => {
   const getUser = async () => {
     try {
       setLoading(true);
-      const res = await fetch("https://long-tie-tick.cyclic.app///users/customers");
+      const res = await fetch("https://long-tie-tick.cyclic.app//users/customers");
       const data = await res.json();
       setUser(data);
       setLoading(false);
@@ -28,7 +28,7 @@ const Users = () => {
     const updatedCartItems = user.filter((item: any) => item._id !== id);
     setUser(updatedCartItems);
     try {
-      const res = await fetch(`https://long-tie-tick.cyclic.app///users/delete/${id}`, {
+      const res = await fetch(`https://long-tie-tick.cyclic.app//users/delete/${id}`, {
         method: "DELETE",
       });
       const data = await res.json();

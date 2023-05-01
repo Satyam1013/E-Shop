@@ -31,10 +31,9 @@ const KidProductPage = () => {
     setLoading(true);
     await axios
       .get(
-        `https://long-tie-tick.cyclic.app///kids?page=${page}&limit=${limit}&category=${category}&gender=${gender}&sort=${order},${sortPrice}&search=${search}`
+        `https://long-tie-tick.cyclic.app//kids?page=${page}&limit=${limit}&category=${category}&gender=${gender}&sort=${order},${sortPrice}&search=${search}`
       )
       .then((res: AxiosResponse) => {
-        // console.log(res.data);
         setData(res.data.kid);
         setLoading(false);
       })

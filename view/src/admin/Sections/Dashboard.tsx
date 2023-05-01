@@ -14,7 +14,7 @@ export default function Dashboard() {
   const totalProducts = mens + womens + elec + kid;
   const getDataElectronic = async () => {
     await axios
-      .get(`https://long-tie-tick.cyclic.app///electronics`)
+      .get(`https://long-tie-tick.cyclic.app//electronics`)
       .then((res: AxiosResponse) => {
         setElec(res.data.items);
       })
@@ -22,7 +22,7 @@ export default function Dashboard() {
   };
   const getDataMens = async () => {
     await axios
-      .get(`https://long-tie-tick.cyclic.app///mens`)
+      .get(`https://long-tie-tick.cyclic.app//mens`)
       .then((res: AxiosResponse) => {
         setMens(res.data.items);
       })
@@ -30,7 +30,7 @@ export default function Dashboard() {
   };
   const getDataWomens = async () => {
     await axios
-      .get(`https://long-tie-tick.cyclic.app///womens`)
+      .get(`https://long-tie-tick.cyclic.app//womens`)
       .then((res: AxiosResponse) => {
         setWomens(res.data.items);
       })
@@ -38,7 +38,7 @@ export default function Dashboard() {
   };
   const getDataKid = async () => {
     await axios
-      .get(`https://long-tie-tick.cyclic.app///kids`)
+      .get(`https://long-tie-tick.cyclic.app//kids`)
       .then((res: AxiosResponse) => {
         setKid(res.data.items);
       })

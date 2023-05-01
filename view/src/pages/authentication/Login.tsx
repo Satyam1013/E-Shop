@@ -10,41 +10,26 @@ import {
   Button,
   Heading,
   Text,
-  useColorModeValue,
+  Image,
+  Center,
 } from "@chakra-ui/react";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 export default function Login() {
-  const {
-    email,
-    password,
-    login,
-    error,
-    setEmail,
-    setPassword
-  } = useContext(AuthContext);
+  const { email, password, login, error, loading, setEmail, setPassword } =
+    useContext(AuthContext);
 
   return (
-    <Flex
-      minH={"100vh"}
-      align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
-    >
+    <Flex minH={"100vh"} align={"center"} justify={"center"} bg={"gray.100"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Sign in to your account</Heading>
-          <Text fontSize={"lg"} color={"gray.600"}>
+          <Text fontSize={"lg"} color={"gray.900"}>
             to shop all the amazing <Link color={"blue.400"}>products</Link> ✌️
           </Text>
         </Stack>
-        <Box
-          rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
-          boxShadow={"lg"}
-          p={8}
-        >
+        <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8}>
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
@@ -86,7 +71,6 @@ export default function Login() {
                 <Checkbox>Remember me</Checkbox>
                 <Link color={"blue.400"}>Forgot password?</Link>
               </Stack>
-              <Link></Link>
               <Button
                 bg={"blue.400"}
                 color={"white"}
@@ -98,6 +82,25 @@ export default function Login() {
                 Sign in
               </Button>
             </Stack>
+            {loading ? (
+              <Center
+                position={"absolute"}
+                backgroundColor="rgba(0,0,0,0.5)"
+                height="100%"
+                width="100%"
+                top={-350}
+                left={"0"}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                overflow="auto"
+                z-index="99999"
+              >
+                <Image src={"/loader.gif"} alt="loader" />
+              </Center>
+            ) : (
+              ""
+            )}
           </Stack>
         </Box>
       </Stack>

@@ -13,6 +13,13 @@ import {
   Text,
   useColorModeValue,
   Link,
+  useToast,
+  Alert,
+  AlertIcon,
+  CloseButton,
+  AlertTitle,
+  Center,
+  Image,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -23,34 +30,72 @@ export default function Signup() {
   const [username, setUsername] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [mobile, setMobile] = useState<number>(91);
+  const [loading, setLoading] = useState(false);
+  const [mobile, setMobile] = useState<number>();
+  const toast = useToast();
 
   let navigate = useNavigate();
 
-  const handelSignUp = () => {
+  const handelSignUp = async () => {
     const payload = {
       username,
       email,
       password,
       mobile,
     };
+    try {
+      if (email.includes("@gmail.com" || "@yahoo.com")) {
+        setLoading(true);
+        const res = await fetch(
+          "https://long-tie-tick.cyclic.app//users/register",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        );
+        const data = await res.json();
 
-    fetch("https://long-tie-tick.cyclic.app///users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    })
-      .then((res) => res.json())
-      .then((res) =>
-        res.msg === "Registration Successful"
-          ? navigate("/login")
-          : alert("Please fill the form correctly")
-      )
-      .catch((err) => console.log(err));
+        if (data.msg === "Registration Successful") {
+          navigate("/login");
+        }
+
+        setLoading(false);
+      } else {
+        toast({
+          duration: 5000,
+          isClosable: true,
+          render: () => (
+            <Alert status="error" borderRadius="lg" bg="red" color="white">
+              <AlertIcon />
+              <AlertTitle mb={0} mr={2} fontSize="md">
+                The email address you entered isn't connected to an account
+              </AlertTitle>
+              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          ),
+        });
+      }
+    } catch (err) {
+      setLoading(false);
+      toast({
+        duration: 5000,
+        isClosable: true,
+        render: () => (
+          <Alert status="error" borderRadius="lg" bg="red" color="white">
+            <AlertIcon />
+            <AlertTitle mb={0} mr={2} fontSize="md">
+              Please fill all the details correctly
+            </AlertTitle>
+            <CloseButton position="absolute" right="8px" top="8px" />
+          </Alert>
+        ),
+      });
+      console.log(err);
+    }
   };
-
   return (
     <Flex
       minH={"100vh"}
@@ -144,6 +189,25 @@ export default function Signup() {
                 </Link>
               </Text>
             </Stack>
+            {loading ? (
+              <Center
+                position={"absolute"}
+                backgroundColor="rgba(0,0,0,0.5)"
+                height="100%"
+                width="100%"
+                top={-350}
+                left={"0"}
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                overflow="auto"
+                z-index="99999"
+              >
+                <Image src={"/loader.gif"} alt="loader" />
+              </Center>
+            ) : (
+              ""
+            )}
           </Stack>
         </Box>
       </Stack>

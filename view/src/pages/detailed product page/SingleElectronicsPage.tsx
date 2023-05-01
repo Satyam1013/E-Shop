@@ -13,6 +13,11 @@ import {
   List,
   ListItem,
   Center,
+  useToast,
+  Alert,
+  AlertIcon,
+  CloseButton,
+  AlertTitle,
 } from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
 import { useEffect, useState, useContext } from "react";
@@ -26,11 +31,14 @@ export default function SingleElectronicsPage() {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState<ElectronicProducts>();
   const { id } = useParams();
+  const toast = useToast();
 
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const res = await fetch(`https://long-tie-tick.cyclic.app///electronics/${id}`);
+      const res = await fetch(
+        `https://long-tie-tick.cyclic.app//electronics/${id}`
+      );
       const data = await res.json();
       setData(data);
       setLoading(false);
@@ -42,7 +50,7 @@ export default function SingleElectronicsPage() {
     const payload = data;
     if (isAuthenticated) {
       if (data?.availability !== "Currently unavailable") {
-        fetch("https://long-tie-tick.cyclic.app///carts/post", {
+        fetch("https://long-tie-tick.cyclic.app//carts/post", {
           method: "POST",
           headers: {
             Authorization: `${localStorage.getItem("e-book token")}`,
@@ -54,10 +62,34 @@ export default function SingleElectronicsPage() {
           .then((res) => setButtonText(res.message))
           .catch((err) => console.log(err));
       } else {
-        alert("This product is currently unavailable");
+        toast({
+          duration: 5000,
+          isClosable: true,
+          render: () => (
+            <Alert status="error" borderRadius="lg" bg="red" color="white">
+              <AlertIcon />
+              <AlertTitle mb={0} mr={2} fontSize="md">
+                This Product is Currently Unavailable
+              </AlertTitle>
+              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          ),
+        });
       }
     } else {
-      alert("Please Login First");
+      toast({
+        duration: 5000,
+        isClosable: true,
+        render: () => (
+          <Alert status="error" borderRadius="lg" bg="red" color="white">
+            <AlertIcon />
+            <AlertTitle mb={0} mr={2} fontSize="md">
+              Please Login First!
+            </AlertTitle>
+            <CloseButton position="absolute" right="8px" top="8px" />
+          </Alert>
+        ),
+      });
     }
   };
   useEffect(() => {

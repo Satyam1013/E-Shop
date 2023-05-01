@@ -17,6 +17,10 @@ import AdminPanel from "../admin/Main Page/AdminPanel";
 import PrivateRoute from "./PrivateRoute";
 import { NotFound } from "../pages/NotFound";
 import AdminLogin from "../admin/AdminLogin";
+import Dashboard from "../admin/Sections/Dashboard";
+import Listings from "../admin/Sections/Listings";
+import Orders from "../admin/Sections/Orders";
+import Info from "../admin/Sections/Info";
 
 const MainRoutes = () => {
   const secretRouteKey = process.env.REACT_APP_ROUTE_KEY;
@@ -53,6 +57,22 @@ const MainRoutes = () => {
       />
       <Route path={"/admin_login"} element={<AdminLogin />} />
       <Route path={`/admin_panel/${secretRouteKey}`} element={<AdminPanel />} />
+      <Route
+        path={`/admin_panel/${secretRouteKey}?page=dashboard`}
+        element={<Dashboard />}
+      />
+      <Route
+        path={`/admin_panel/${secretRouteKey}?page=listings`}
+        element={<Listings />}
+      />
+      <Route
+        path={`/admin_panel/${secretRouteKey}?page=orders`}
+        element={<Orders />}
+      />
+      <Route
+        path={`/admin_panel/${secretRouteKey}?page=admin-info`}
+        element={<Info />}
+      />
       <Route path={"*"} element={<NotFound />} />
     </Routes>
   );

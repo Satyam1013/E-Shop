@@ -12,6 +12,11 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
+  useToast,
+  Alert,
+  AlertIcon,
+  CloseButton,
+  AlertTitle,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 
@@ -23,6 +28,7 @@ export default function AddProduct({ route, category }: any) {
   const [price, setPrice] = useState("");
   const [gender, setGender] = useState("");
   const [features, setFeatures] = useState("");
+  const toast = useToast();
 
   const men_women = {
     title: title,
@@ -91,25 +97,80 @@ export default function AddProduct({ route, category }: any) {
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
 
+  const checker = () => {
+    try {
+      category === "All"
+        ? toast({
+            duration: 5000,
+            isClosable: true,
+            render: () => (
+              <Alert
+                status="warning"
+                borderRadius="lg"
+                bg="orange"
+                color="white"
+              >
+                <AlertIcon />
+                <AlertTitle mb={0} mr={2} fontSize="md">
+                  Please Select Category First
+                </AlertTitle>
+                <CloseButton position="absolute" right="8px" top="8px" />
+              </Alert>
+            ),
+          })
+        : onOpen();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const sendData = async () => {
-    if (category === "All") {
-      alert("Choose Category First!");
-    } else {
-      try {
-        const res = await fetch(`https://long-tie-tick.cyclic.app///${route}/post`, {
+    try {
+      const res = await fetch(
+        `https://long-tie-tick.cyclic.app//${route}/post`,
+        {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(payload),
-        });
-        const data = await res.json();
-        data.message === "Added in the DB"
-          ? alert("Successfully Added")
-          : alert("ERROR: Not Added");
-      } catch (err) {
-        console.log(err);
-      }
+        }
+      );
+      const data = await res.json();
+      data.message === "Added in the DB"
+        ? toast({
+            duration: 5000,
+            isClosable: true,
+            render: () => (
+              <Alert
+                status="success"
+                borderRadius="lg"
+                bg="green"
+                color="white"
+              >
+                <AlertIcon />
+                <AlertTitle mb={0} mr={2} fontSize="md">
+                  Successfully Added the Product
+                </AlertTitle>
+                <CloseButton position="absolute" right="8px" top="8px" />
+              </Alert>
+            ),
+          })
+        : toast({
+            duration: 5000,
+            isClosable: true,
+            render: () => (
+              <Alert status="error" borderRadius="lg" bg="red" color="white">
+                <AlertIcon />
+                <AlertTitle mb={0} mr={2} fontSize="md">
+                  Not Added in the Database
+                </AlertTitle>
+                <CloseButton position="absolute" right="8px" top="8px" />
+              </Alert>
+            ),
+          });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -121,7 +182,7 @@ export default function AddProduct({ route, category }: any) {
         borderRadius={""}
         backgroundColor="#e9d8fd"
         padding="12px"
-        onClick={onOpen}
+        onClick={checker}
       >
         Add Product
       </Button>

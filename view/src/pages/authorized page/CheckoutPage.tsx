@@ -15,9 +15,11 @@ import {
 } from "@chakra-ui/react";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const { email } = useContext(AuthContext);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -79,6 +81,7 @@ const CheckoutPage = () => {
           </Alert>
         ),
       });
+      navigate("/");
     }
   };
   return (

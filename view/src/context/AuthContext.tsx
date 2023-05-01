@@ -9,6 +9,7 @@ export const AuthContext = createContext<AuthContextType>({
   email: "",
   password: "",
   error: "",
+  loading: false,
   setEmail: () => {},
   setPassword: () => {},
 });
@@ -17,7 +18,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("e-book token") ? true : false
   );
-
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState<string>(
     localStorage.getItem("e-book email") || ""
@@ -30,8 +31,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       email,
       password,
     };
+    setLoading(true);
     try {
-      const res = await fetch("https://long-tie-tick.cyclic.app///users/login", {
+      const res = await fetch("https://long-tie-tick.cyclic.app//users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,6 +41,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
+      setLoading(false);
       if (data.message === "Login Successful") {
         setIsAuthenticated(true);
         localStorage.setItem("e-book token", data.token);
@@ -49,6 +52,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         setError(data.message);
       }
     } catch (err) {
+      setLoading(false);
       console.log(err);
     }
   };
@@ -60,7 +64,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem("e-book email");
   };
 
-
   return (
     <AuthContext.Provider
       value={{
@@ -68,6 +71,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         login,
         logout,
         email,
+        loading,
         password,
         error,
         setEmail,

@@ -35,16 +35,14 @@ const ElectronicsPage = () => {
   const [sortPrice, setSortPrice] = useState("");
   const [order, setOrder] = useState("discount_price");
   const [limit, setLimit] = useState<string | number>(25);
-  // console.log(search);
 
   const getData = async () => {
     setLoading(true);
     await axios
       .get(
-        `https://long-tie-tick.cyclic.app///electronics?page=${page}&limit=${limit}&category=${category}&brand=${brand}&sort=${order},${sortPrice}&search=${search}`
+        `https://long-tie-tick.cyclic.app//electronics?page=${page}&limit=${limit}&category=${category}&brand=${brand}&sort=${order},${sortPrice}&search=${search}`
       )
       .then((res: AxiosResponse) => {
-        console.log(res.data);
         setData(res.data.electronics);
         setLoading(false);
       })

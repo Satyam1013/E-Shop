@@ -6,33 +6,37 @@ import {
   Button,
   Image,
   Center,
+  Heading,
+  Stack,
+  Link,
 } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Listings from "../Sections/Listings";
 import Users from "../Sections/Users";
 import Info from "../Sections/Info";
 import Orders from "../Sections/Orders";
 import Dashboard from "../Sections/Dashboard";
+import { FaChartLine, FaClipboardList, FaList, FaUsers } from "react-icons/fa";
 
-const category = ["Dashboard", "Listings", "Orders", "Users", "Account-Info"];
+const category = ["dashboard", "listings", "orders", "users", "admin-info"];
 
 function AdminPanel() {
   const navigate = useNavigate();
-  const [item, setItem] = useState("dashboard");
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = searchParams.get("page");
+
   const handleItems = (el: any) => {
-    setSelectedCategory(el);
-    if (el === "Dashboard") {
-      setItem("dashboard");
-    } else if (el === "Listings") {
-      setItem("listings");
-    } else if (el === "Users") {
-      setItem("users");
-    } else if (el === "Orders") {
-      setItem("orders");
-    } else if (el === "Account-Info") {
-      setItem("info");
+    if (el === "dashboard") {
+      setSearchParams({ page: "dashboard" });
+    } else if (el === "listings") {
+      setSearchParams({ page: "listings" });
+    } else if (el === "users") {
+      setSearchParams({ page: "users" });
+    } else if (el === "orders") {
+      setSearchParams({ page: "orders" });
+    } else if (el === "admin-info") {
+      setSearchParams({ page: "admin-info" });
     }
   };
 
@@ -42,9 +46,11 @@ function AdminPanel() {
   return (
     <Flex>
       <Box width="300px" backgroundColor="purple.100">
-        <Center p="2" mt="20px">
-          <Image w="100px" src="/e-shop.png" alt="logo" />
-        </Center>
+        <Link href="/admin_panel/220451">
+          <Center p="2" mt="20px">
+            <Image w="100px" src="/e-shop.png" alt="logo" />
+          </Center>
+        </Link>
         <Box p="2" mt="50px">
           <Avatar
             size="2xl"
@@ -66,16 +72,14 @@ function AdminPanel() {
               p="10px"
               width="200px"
               mt="4"
-              color={"#6f186b"}
+              color={page === el ? "white" : "#6f186b"}
               fontWeight={"600"}
               _hover={{ color: "red" }}
               onClick={() => handleItems(el)}
               cursor={"pointer"}
-              backgroundColor={
-                selectedCategory === el ? "#64d66b" : "transparent"
-              }
+              backgroundColor={page === el ? "#64d66b" : "transparent"}
             >
-              {el}
+              {el.toUpperCase()}
             </Text>
           ))}
           <Button
@@ -91,11 +95,50 @@ function AdminPanel() {
         </Box>
       </Box>
       <Box flex="1">
-        {item === "dashboard" ? <Dashboard /> : ""}
-        {item === "listings" ? <Listings /> : ""}
-        {item === "orders" ? <Orders /> : ""}
-        {item === "users" ? <Users /> : ""}
-        {item === "info" ? <Info /> : ""}
+        {page === null ? (
+          <Box
+            bg="white"
+            w="100%"
+            boxShadow="md"
+            rounded="md"
+            p={4}
+            mr={{ md: 8 }}
+            mb={{ base: 8, md: 0 }}
+          >
+            <Stack spacing={24}>
+              <Heading size="lg" mb={2} color='violet'>
+                Admin Panel
+              </Heading>
+              <Text fontSize="2xl" mb={4} color='green'>
+                Welcome, Satyam Banwale!
+              </Text>
+              <Text fontSize="xl" mb={8}>
+            This is where you can manage your website and make changes as needed.
+          </Text>
+              <Flex justify="space-between" align="center">
+                <Link href="/admin_panel/220451?page=dashboard">
+                  <FaChartLine />
+                </Link>
+                <Link href="/admin_panel/220451?page=listings">
+                  <FaList />
+                </Link>
+                <Link href="/admin_panel/220451?page=orders">
+                  <FaClipboardList />
+                </Link>
+                <Link href="/admin_panel/220451?page=users">
+                  <FaUsers />
+                </Link>
+              </Flex>
+            </Stack>
+          </Box>
+        ) : (
+          ""
+        )}
+        {page === "dashboard" ? <Dashboard /> : ""}
+        {page === "listings" ? <Listings /> : ""}
+        {page === "orders" ? <Orders /> : ""}
+        {page === "users" ? <Users /> : ""}
+        {page === "admin-info" ? <Info /> : ""}
       </Box>
     </Flex>
   );

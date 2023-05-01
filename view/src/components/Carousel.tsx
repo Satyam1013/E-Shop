@@ -70,10 +70,11 @@ export default function Carousel() {
   return (
     <Box
       position={"relative"}
-      height={"430px"}
+      height={{base:'250px',lg:"430px"}}
       width={"full"}
       overflow={"hidden"}
       zIndex={-1}
+      mt='20px'
     >
       {/* CSS files for react-slick */}
       <link
@@ -118,7 +119,7 @@ export default function Carousel() {
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={"sm"}
+            height={{base:'180px',lg:"sm"}}
             position="relative"
             backgroundPosition="center"
             backgroundRepeat="no-repeat"

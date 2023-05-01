@@ -7,6 +7,11 @@ import {
   Image,
   Link,
   Text,
+  useToast,
+  Alert,
+  AlertIcon,
+  CloseButton,
+  AlertTitle,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useMemo, useState } from "react";
@@ -43,6 +48,7 @@ const MenProductPage = () => {
   const [sortByBrand, setBrand] = useState("All");
   const [order, setOrder] = useState(orderBy || "");
   const [categoryBy, setCategoryBy] = useState("All");
+  const toast = useToast();
 
   const categorySet = (e: any) => {
     setSearchParams({ category: e.target.value, brand, sortBy, orderBy });
@@ -67,8 +73,20 @@ const MenProductPage = () => {
     });
   };
   const selectOrder = (e: any) => {
-    sortBy === ""
-      ? alert("Please Select Sort By First")
+    sortByBrand === "All"
+      ?  toast({
+        duration: 5000,
+        isClosable: true,
+        render: () => (
+          <Alert status="warning" borderRadius="lg" bg="orange" color="white">
+            <AlertIcon />
+            <AlertTitle mb={0} mr={2} fontSize="md">
+              Please Select Category First
+            </AlertTitle>
+            <CloseButton position="absolute" right="8px" top="8px" />
+          </Alert>
+        ),
+      })
       : setSearchParams({
           category,
           brand,
@@ -83,7 +101,7 @@ const MenProductPage = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://long-tie-tick.cyclic.app///mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
+          `https://long-tie-tick.cyclic.app//mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
         );
         console.log(res.data);
         setData(res.data.men);

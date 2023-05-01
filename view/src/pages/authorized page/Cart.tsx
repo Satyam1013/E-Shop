@@ -8,7 +8,7 @@ const CartPage = () => {
 
   const getData = async () => {
     try {
-      const res = await fetch("https://long-tie-tick.cyclic.app///carts", {
+      const res = await fetch("https://long-tie-tick.cyclic.app//carts", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `${localStorage.getItem("e-book token")}`,
@@ -34,7 +34,7 @@ const CartPage = () => {
     });
     setCartItems(updatedCartItems);
 
-    fetch(`https://long-tie-tick.cyclic.app///carts/update/${itemId._id}`, {
+    fetch(`https://long-tie-tick.cyclic.app//carts/update/${itemId._id}`, {
       method: "PATCH",
       headers: {
         Authorization: `${localStorage.getItem("e-book token")}`,
@@ -56,7 +56,7 @@ const CartPage = () => {
     });
     setCartItems(updatedCartItems);
 
-    fetch(`https://long-tie-tick.cyclic.app///carts/update/${itemId._id}`, {
+    fetch(`https://long-tie-tick.cyclic.app//carts/update/${itemId._id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +80,7 @@ const CartPage = () => {
       (item: any) => item._id !== itemId._id
     );
     setCartItems(updatedCartItems);
-    fetch(`https://long-tie-tick.cyclic.app///carts/delete/${itemId._id}`, {
+    fetch(`https://long-tie-tick.cyclic.app//carts/delete/${itemId._id}`, {
       method: "DELETE",
       headers: {
         Authorization: `${localStorage.getItem("e-book token")}`,

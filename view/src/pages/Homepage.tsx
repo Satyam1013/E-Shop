@@ -45,7 +45,7 @@ const Homepage = () => {
   const getData = async () => {
     setLoad(true);
     try {
-      const data = await fetch("https://long-tie-tick.cyclic.app///homes");
+      const data = await fetch("https://long-tie-tick.cyclic.app//homes");
       const res = await data.json();
       setMen(res[0].Mens);
       setWomen(res[0].womens);
@@ -153,7 +153,7 @@ const Homepage = () => {
               src="/women-cover.jpg"
               alt="women-cover"
               w="100%"
-              h="270px"
+              h={{base:'110px',lg:"270px"}}
             />
 
             <Box
