@@ -40,7 +40,7 @@ const ElectronicsPage = () => {
     setLoading(true);
     await axios
       .get(
-        `https://long-tie-tick.cyclic.app//electronics?page=${page}&limit=${limit}&category=${category}&brand=${brand}&sort=${order},${sortPrice}&search=${search}`
+        `https://e-shop-215k.onrender.com/electronics?page=${page}&limit=${limit}&category=${category}&brand=${brand}&sort=${order},${sortPrice}&search=${search}`
       )
       .then((res: AxiosResponse) => {
         setData(res.data.electronics);

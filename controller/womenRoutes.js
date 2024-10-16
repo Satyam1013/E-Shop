@@ -58,7 +58,6 @@ womenRouter.get("/", async (req, res) => {
 
 womenRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
-  // console.log(id);
   try {
     const response = await WomenModel.findById(id);
     res.status(200).send(response);

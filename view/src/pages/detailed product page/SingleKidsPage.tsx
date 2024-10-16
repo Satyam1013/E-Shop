@@ -36,7 +36,7 @@ export default function SingleKidsProductPage() {
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const res = await fetch(`https://long-tie-tick.cyclic.app//kids/${id}`);
+      const res = await fetch(`https://e-shop-215k.onrender.com/kids/${id}`);
       const data = await res.json();
       setData(data);
       setLoading(false);
@@ -48,7 +48,7 @@ export default function SingleKidsProductPage() {
     const payload = data;
     if (isAuthenticated) {
       if (data?.availability !== "Currently unavailable") {
-        fetch("https://long-tie-tick.cyclic.app//carts/post", {
+        fetch("https://e-shop-215k.onrender.com/carts/post", {
           method: "POST",
           headers: {
             Authorization: `${localStorage.getItem("e-book token")}`,

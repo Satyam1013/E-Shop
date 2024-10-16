@@ -37,7 +37,7 @@ export default function SingleElectronicsPage() {
     setLoading(true);
     try {
       const res = await fetch(
-        `https://long-tie-tick.cyclic.app//electronics/${id}`
+        `https://e-shop-215k.onrender.com/electronics/${id}`
       );
       const data = await res.json();
       setData(data);
@@ -50,7 +50,7 @@ export default function SingleElectronicsPage() {
     const payload = data;
     if (isAuthenticated) {
       if (data?.availability !== "Currently unavailable") {
-        fetch("https://long-tie-tick.cyclic.app//carts/post", {
+        fetch("https://e-shop-215k.onrender.com/carts/post", {
           method: "POST",
           headers: {
             Authorization: `${localStorage.getItem("e-book token")}`,

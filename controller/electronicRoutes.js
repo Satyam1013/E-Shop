@@ -79,7 +79,6 @@ electronicRouter.get("/", async (req, res) => {
 
 electronicRouter.get("/:id", async (req, res) => {
   const id = req.params.id;
-  // console.log(id);
   try {
     const response = await ElectronicModel.findById(id);
     res.status(200).send(response);

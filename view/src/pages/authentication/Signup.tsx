@@ -44,10 +44,10 @@ export default function Signup() {
       mobile,
     };
     try {
-      if (email.includes("@gmail.com" || "@yahoo.com")) {
+      if (email.includes("@gmail.com")) {
         setLoading(true);
         const res = await fetch(
-          "https://long-tie-tick.cyclic.app//users/register",
+          "https://e-shop-215k.onrender.com/users/register",
           {
             method: "POST",
             headers: {

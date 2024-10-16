@@ -101,7 +101,7 @@ const MenProductPage = () => {
       setLoading(true);
       try {
         const res = await axios.get(
-          `https://long-tie-tick.cyclic.app//mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
+          `https://e-shop-215k.onrender.com/mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
         );
         console.log(res.data);
         setData(res.data.men);

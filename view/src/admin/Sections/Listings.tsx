@@ -74,7 +74,7 @@ const Listings = () => {
     setItems(updatedVisibility);
     try {
       const res = await fetch(
-        `https://long-tie-tick.cyclic.app//${route}/update/${id}`,
+        `https://e-shop-215k.onrender.com/${route}/update/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -93,7 +93,7 @@ const Listings = () => {
   const getData = async () => {
     try {
       const res = await fetch(
-        `https://long-tie-tick.cyclic.app//${route}?category=${category}&search=${search}&page=${page}&limit=10`
+        `https://e-shop-215k.onrender.com/${route}?category=${category}&search=${search}&page=${page}&limit=10`
       );
       const data = await res.json();
       setOption(data.category);
@@ -122,7 +122,7 @@ const Listings = () => {
     setItems(updatedVisibility);
     try {
       const res = await fetch(
-        `https://long-tie-tick.cyclic.app//${route}/update/${el._id}`,
+        `https://e-shop-215k.onrender.com/${route}/update/${el._id}`,
         {
           method: "PATCH",
           headers: {

@@ -20,7 +20,7 @@ import {
   AlertTitle,
 } from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { MenProducts } from "../../utils/types";
 import { AuthContext } from "../../context/AuthContext";
@@ -36,7 +36,7 @@ export default function SingleMenProductPage() {
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const res = await fetch(`https://long-tie-tick.cyclic.app//mens/${id}`);
+      const res = await fetch(`https://e-shop-215k.onrender.com/mens/${id}`);
       const data = await res.json();
       setData(data);
       setLoading(false);
@@ -48,7 +48,7 @@ export default function SingleMenProductPage() {
     const payload = data;
     if (isAuthenticated) {
       if (data?.availability !== "Currently unavailable") {
-        fetch("https://long-tie-tick.cyclic.app//carts/post", {
+        fetch("https://e-shop-215k.onrender.com/carts/post", {
           method: "POST",
           headers: {
             Authorization: `${localStorage.getItem("e-book token")}`,

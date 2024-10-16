@@ -33,7 +33,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     };
     setLoading(true);
     try {
-      const res = await fetch("https://long-tie-tick.cyclic.app//users/login", {
+      const res = await fetch("https://e-shop-215k.onrender.com/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
