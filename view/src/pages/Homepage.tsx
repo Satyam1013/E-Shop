@@ -11,24 +11,44 @@ import {
   Stat,
   StatLabel,
   StatNumber,
+  Button,
+  useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react";
-import { ElectronicProducts, KidProducts, MenProducts, StatsCardProps, WomenProducts } from "../utils/types";
 import { Link } from "react-router-dom";
 
-function StatsCard(props: StatsCardProps) {
-  const { title, stat } = props;
+type Product = {
+  image: string;
+  title: string;
+  discount_price: number;
+};
+
+type Categories = {
+  men: Product[];
+  women: Product[];
+  kid: Product[];
+  electronic: Product[];
+};
+
+function StatsCard({ title, stat }: { title: string; stat: string }) {
   return (
     <Stat
       px={{ base: 4, md: 8 }}
-      py={'5'}
-      shadow={'xl'}
-      border={'1px solid'}
-      borderColor={'gray.500'}
-      rounded={'lg'}>
-      <StatLabel fontWeight={'medium'} isTruncated>
+      py={"5"}
+      shadow={"xl"}
+      border={"1px solid"}
+      borderColor={"gray.500"}
+      rounded={"lg"}
+      transition="transform 0.3s ease, box-shadow 0.3s ease"
+      _hover={{
+        transform: "translateY(-5px)",
+        boxShadow: "rgba(0, 0, 0, 0.2) 0px 10px 20px",
+      }}
+    >
+      <StatLabel fontWeight={"medium"} isTruncated>
         {title}
       </StatLabel>
-      <StatNumber fontSize={'2xl'} fontWeight={'medium'}>
+      <StatNumber fontSize={"2xl"} fontWeight={"medium"}>
         {stat}
       </StatNumber>
     </Stat>
@@ -36,305 +56,182 @@ function StatsCard(props: StatsCardProps) {
 }
 
 const Homepage = () => {
-  const [men, setMen] = useState([]);
-  const [women, setWomen] = useState([]);
-  const [kid, setKid] = useState([]);
-  const [electronic, setElectronic] = useState([]);
+  const [categories, setCategories] = useState<Categories>({
+    men: [],
+    women: [],
+    kid: [],
+    electronic: [],
+  });
   const [load, setLoad] = useState(false);
+
+  const { colorMode, toggleColorMode } = useColorMode(); // ChakraUI hook
+  const bgColor = useColorModeValue("#f7f7f7", "#1a202c"); // Light/Dark mode background
+  const textColor = useColorModeValue("black", "white");
+  const headingHoverColor = useColorModeValue("#2c7a7b", "#38b2ac");
+  const headingColor = useColorModeValue("#68d391", "#81e6d9");
+  const cardBgColor = useColorModeValue("white", "#e2e8f0"); // Light: white, Dark: darker card color
+  const gridBgColor = useColorModeValue("#cccfcf", "#1a202c"); // Light: light gray, Dark: dark background
 
   const getData = async () => {
     setLoad(true);
     try {
-      const data = await fetch("https://e-shop-215k.onrender.com/homes");
-      const res = await data.json();
-      setMen(res[0].Mens);
-      setWomen(res[0].womens);
-      setKid(res[0].kids);
-      setElectronic(res[0].electronics);
-      setLoad(false);
+      const response = await fetch("https://e-shop-215k.onrender.com/homes");
+      const data = await response.json();
+
+      const {
+        Mens = [],
+        womens = [],
+        kids = [],
+        electronics = [],
+      } = data[0] || {};
+      setCategories({
+        men: Mens,
+        women: womens,
+        kid: kids,
+        electronic: electronics,
+      });
     } catch (err) {
-      console.log(err);
+      console.error("Failed to fetch data:", err);
+    } finally {
+      setLoad(false);
     }
   };
+
   useEffect(() => {
     getData();
   }, []);
+
   return (
-    <Box mt={{ base: "41px", md: "0" }}>
-      <Link to="/mens">
-        <Image src="men divider.jpg" w="100%" />
-      </Link>
+    <Box mt={{ base: "41px", md: "0" }} bg={bgColor} color={"black"}>
+      {/* Dark Mode Toggle Button */}
+      <Box position="fixed" top="10px" right="20px" zIndex="10">
+        <Button onClick={toggleColorMode} size="sm">
+          {colorMode === "light" ? "Dark Mode" : "Light Mode"}
+        </Button>
+      </Box>
+
+      <Carousel />
       {load ? (
         <Center>
           <Image src="loader.gif" alt="loader" />
         </Center>
       ) : (
-        <Box
-          maxW="95%"
-          m="auto"
-          borderWidth="1px"
-          borderRadius="lg"
-          overflow="hidden"
-        >
-          <Link to="/mens">
-            <Heading
-              size={"xl"}
-              textTransform="uppercase"
-              letterSpacing="widest"
-              borderBottom="2px"
-              borderColor="gray.500"
-              m="20px"
-              pb={2}
-              color={"#68d391"}
-              fontFamily={"sans-serif"}
-            >
-              Mens Collection
-            </Heading>
-            <Box
-              display="grid"
-              gridTemplateColumns={{
-                base: "repeat(2,1fr)",
-                md: "repeat(3,1fr)",
-                lg: "repeat(4,1fr)",
-              }}
-              justifyContent={"center"}
-              m="auto"
-            >
-              {men.map((el: MenProducts, index) => (
-                <Box
-                  key={index}
-                  m={{ base: "10px", lg: "20px" }}
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  gap={"20px"}
-                  p="10px"
-                  boxShadow="rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"
-                >
-                  <Center>
-                    <Image
-                      src={el.image}
-                      alt="men_products"
-                      w={{ base: "120px", md: "200px", lg: "250px" }}
-                      h={{ base: "200px", md: "300px", lg: "350px" }}
-                    />
-                  </Center>
-                  <Heading
-                    size={{ base: "15px", md: "sm", lg: "md" }}
-                    fontWeight="semibold"
-                    lineHeight={"30px"}
+        <Box m="auto" borderWidth="1px" borderRadius="lg" overflow="hidden">
+          {Object.entries(categories).map(([key, products]) => (
+            <Link key={key} to={`/${key}`}>
+              <Heading
+                size={"xl"}
+                textTransform="uppercase"
+                letterSpacing="widest"
+                borderBottom="2px"
+                borderColor="gray.500"
+                m="20px"
+                pb={2}
+                color={headingColor}
+                fontFamily={"sans-serif"}
+                transition="color 0.3s ease, border-color 0.3s ease"
+                _hover={{
+                  color: headingHoverColor,
+                  borderColor: headingHoverColor,
+                }}
+              >
+                {key.charAt(0).toUpperCase() + key.slice(1)} Collection
+              </Heading>
+
+              <Box
+                display="grid"
+                gridTemplateColumns={{
+                  base: "repeat(2,1fr)",
+                  md: "repeat(3,1fr)",
+                  lg: "repeat(4,1fr)",
+                }}
+                p="20px"
+                justifyContent={"center"}
+                bgColor={gridBgColor}
+              >
+                {products.map((product: Product, index) => (
+                  <Box
+                    key={index}
+                    m={{ base: "10px", lg: "15px" }}
+                    display={"flex"}
+                    flexDirection={"column"}
+                    justifyContent={"center"}
+                    gap={"10px"}
+                    p="10px"
+                    bgColor={cardBgColor}
+                    borderRadius="20px"
+                    boxShadow="rgba(0, 0, 0, 0.05) 0px 0px 0px 1px"
+                    transition="transform 0.3s ease, box-shadow 0.3s ease"
+                    _hover={{
+                      transform: "scale(1.05)",
+                      boxShadow: "rgba(0, 0, 0, 0.15) 0px 8px 20px",
+                    }}
                   >
-                    {el.title}
-                  </Heading>
-                  <Text fontSize="sm" color="gray.500">
-                    {el.discount_price}
-                  </Text>
-                </Box>
-              ))}
-            </Box>
-          </Link>
-
-          <Link to="/womens">
-            <Heading
-              size={"xl"}
-              textTransform="uppercase"
-              letterSpacing="widest"
-              borderBottom="2px"
-              borderColor="gray.500"
-              m="20px"
-              mt="50px"
-              pb={2}
-              color={"#68d391"}
-              fontFamily={"sans-serif"}
-            >
-              Womens Collection
-            </Heading>
-            <Image
-              src="/women-cover.jpg"
-              alt="women-cover"
-              w="100%"
-              h={{base:'110px',lg:"270px"}}
-            />
-
-            <Box
-              display="grid"
-              gridTemplateColumns={{
-                base: "repeat(2,1fr)",
-                md: "repeat(3,1fr)",
-                lg: "repeat(4,1fr)",
-              }}
-              justifyContent={"center"}
-              m="auto"
-            >
-              {women.map((el: WomenProducts, index) => (
-                <Box
-                  key={index}
-                  m={{ base: "10px", lg: "20px" }}
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  gap={"20px"}
-                  p="10px"
-                  boxShadow="rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"
-                >
-                  <Center>
-                    <Image
-                      src={el.image}
-                      alt="men_products"
-                      w={{ base: "120px", md: "200px", lg: "250px" }}
-                      h={{ base: "200px", md: "300px", lg: "350px" }}
-                    />
-                  </Center>
-                  <Heading
-                    size={{ base: "15px", md: "sm", lg: "md" }}
-                    fontWeight="semibold"
-                    lineHeight={"30px"}
-                  >
-                    {el.title}
-                  </Heading>
-                  <Text fontSize="sm" color="gray.500">
-                    {el.discount_price}
-                  </Text>
-                </Box>
-              ))}
-            </Box>
-          </Link>
-
-          <Carousel />
-
-          <Link to="/kids">
-            <Heading
-              size={"xl"}
-              textTransform="uppercase"
-              letterSpacing="widest"
-              borderBottom="2px"
-              borderColor="gray.500"
-              m="20px"
-              pb={2}
-              color={"#68d391"}
-              fontFamily={"sans-serif"}
-            >
-              Kids Collection
-            </Heading>
-            <Box
-              display="grid"
-              gridTemplateColumns={{
-                base: "repeat(2,1fr)",
-                md: "repeat(3,1fr)",
-                lg: "repeat(4,1fr)",
-              }}
-              justifyContent={"center"}
-              m="auto"
-            >
-              {kid.map((el: KidProducts, index) => (
-                <Box
-                  key={index}
-                  m={{ base: "10px", lg: "20px" }}
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  gap={"20px"}
-                  p="10px"
-                  boxShadow="rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"
-                >
-                  <Center>
-                    <Image
-                      src={el.image}
-                      alt="men_products"
-                      w={{ base: "120px", md: "200px", lg: "250px" }}
-                      h={{ base: "200px", md: "300px", lg: "350px" }}
-                    />
-                  </Center>
-                  <Heading
-                    size={{ base: "15px", md: "sm", lg: "md" }}
-                    fontWeight="semibold"
-                    lineHeight={"30px"}
-                  >
-                    {el.title}
-                  </Heading>
-                  <Text fontSize="sm" color="gray.500">
-                    {el.discount_price}
-                  </Text>
-                </Box>
-              ))}
-            </Box>
-          </Link>
-
-          <Link to="/electronics">
-            <Heading
-              size={"xl"}
-              textTransform="uppercase"
-              letterSpacing="widest"
-              borderBottom="2px"
-              borderColor="gray.500"
-              m="20px"
-              pb={2}
-              color={"#68d391"}
-              fontFamily={"sans-serif"}
-            >
-              Electronics Collection
-            </Heading>
-            <Image src="electronic divider.jpg" alt="elec div" />
-
-            <Box
-              display="grid"
-              gridTemplateColumns={{
-                base: "repeat(2,1fr)",
-                md: "repeat(3,1fr)",
-                lg: "repeat(4,1fr)",
-              }}
-              justifyContent={"center"}
-              m="auto"
-            >
-              {electronic.map((el: ElectronicProducts, index) => (
-                <Box
-                  key={index}
-                  m={{ base: "10px", lg: "20px" }}
-                  display={"flex"}
-                  flexDirection={"column"}
-                  justifyContent={"center"}
-                  gap={"20px"}
-                  p="10px"
-                  boxShadow="rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px"
-                >
-                  <Center>
-                    <Image
-                      src={el.image}
-                      alt="men_products"
-                      w={{ base: "120px", md: "200px", lg: "250px" }}
-                      h={{ base: "200px", md: "300px", lg: "350px" }}
-                    />
-                  </Center>
-                  <Heading
-                    size={{ base: "15px", md: "sm", lg: "md" }}
-                    fontWeight="semibold"
-                    lineHeight={"30px"}
-                  >
-                    {el.title}
-                  </Heading>
-                  <Text fontSize="sm" color="gray.500">
-                    {el.discount_price}
-                  </Text>
-                </Box>
-              ))}
-            </Box>
-          </Link>
+                    <Center>
+                      <Box
+                        w="200px"
+                        h="200px"
+                        overflow="hidden"
+                        borderRadius="10px"
+                        position="relative"
+                      >
+                        <Image
+                          src={product.image}
+                          alt={`${key}_product`}
+                          w="100%"
+                          h="100%"
+                          objectFit="cover"
+                          transition="transform 0.5s ease"
+                          _hover={{
+                            transform: "scale(1.2)",
+                          }}
+                        />
+                      </Box>
+                    </Center>
+                    <Heading
+                      size={{ base: "15px", md: "sm", lg: "md" }}
+                      fontWeight="semibold"
+                      lineHeight={"30px"}
+                    >
+                      {product.title}
+                    </Heading>
+                    <Text fontSize="sm" color="gray.500">
+                      ₹ {product.discount_price}
+                    </Text>
+                  </Box>
+                ))}
+              </Box>
+            </Link>
+          ))}
         </Box>
       )}
-   
-      <Box maxW="7xl" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
+      <Box maxW="95%" mx={"auto"} pt={5} px={{ base: 2, sm: 12, md: 17 }}>
         <chakra.h1
           textAlign={"center"}
           fontSize={"4xl"}
           py={10}
           fontWeight={"bold"}
+          color={textColor}
         >
-          What is our company doing?
+          What does our company offer?
         </chakra.h1>
-        <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 5, lg: 8 }} >
-          <StatsCard title={"We serve"} stat={"50,000 people"} />
-          <StatsCard title={"In"} stat={"30 different countries"} />
-          <StatsCard title={"Who speak"} stat={"100 different languages"} />
+        <SimpleGrid
+          columns={{ base: 1, md: 3 }}
+          spacing={{ base: 5, lg: 8 }}
+          color={textColor}
+        >
+          <StatsCard
+            title={"Products for Everyone"}
+            stat={"Men, Women, Kids"}
+          />
+          <StatsCard
+            title={"Wide Variety"}
+            stat={"Thousands of Options to Choose From"}
+          />
+          <StatsCard
+            title={"Affordable & Convenient"}
+            stat={"Easy to Buy at Competitive Prices"}
+          />
         </SimpleGrid>
       </Box>
     </Box>

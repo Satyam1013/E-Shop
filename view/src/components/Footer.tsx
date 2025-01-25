@@ -9,12 +9,20 @@ import {
   Tag,
   Image,
   useColorModeValue,
+  Fade,
 } from "@chakra-ui/react";
 import { ReactNode } from "react";
 
 const ListHeader = ({ children }: { children: ReactNode }) => {
   return (
-    <Text fontWeight={"500"} fontSize={"lg"} mb={2}>
+    <Text
+      fontWeight={"bold"}
+      fontSize={"lg"}
+      mb={4}
+      textTransform="uppercase"
+      letterSpacing="0.1em"
+      color="gray.300"
+    >
       {children}
     </Text>
   );
@@ -23,81 +31,193 @@ const ListHeader = ({ children }: { children: ReactNode }) => {
 export default function Footer() {
   return (
     <Box
-      bg={useColorModeValue("gray.50", "gray.900")}
-      color={useColorModeValue("gray.700", "gray.200")}
-      mt="10px"
+      bg={"#2D2D2D"}
+      color={"#EAEAEA"}
+      mt="20px"
+      borderTop="5px solid #68D391"
+      position="relative"
+      zIndex={10}
     >
-      <Container as={Stack} maxW={"6xl"} py={10}>
-        <SimpleGrid columns={{ base: 2, sm: 2, md: 4 }} spacing={8}>
+      <Container as={Stack} maxW={"7xl"} py={10}>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={10}>
           <Stack align={"flex-start"}>
             <ListHeader>Product</ListHeader>
-            <Link href={"/"}>Overview</Link>
+            <Link
+              href={"/"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Overview
+            </Link>
             <Stack direction={"row"} align={"center"} spacing={2}>
-              <Link href={"/about"}>Features</Link>
-              <Tag
-                size={"sm"}
-                bg={useColorModeValue("green.300", "green.800")}
-                ml={2}
-                color={"white"}
+              <Link
+                href={"/about"}
+                _hover={{ color: "#68D391", textDecoration: "underline" }}
               >
+                Features
+              </Link>
+              <Tag size={"sm"} bg={"green.500"} color={"white"} ml={2}>
                 New
               </Tag>
             </Stack>
-            <Link href={"#"}>Tutorials</Link>
-            <Link href={"/electronics"}>Pricing</Link>
-            <Link href={"/about"}>Releases</Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Tutorials
+            </Link>
+            <Link
+              href={"/electronics"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Pricing
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Releases
+            </Link>
           </Stack>
           <Stack align={"flex-start"}>
             <ListHeader>Company</ListHeader>
-            <Link href={"/about"}>About Us</Link>
-            <Link href={"#"}>Press</Link>
-            <Link href={"/about"}>Careers</Link>
-            <Link href={"/about"}>Contact Us</Link>
-            <Link href={"/about"}>Partners</Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              About Us
+            </Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Press
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Careers
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Contact Us
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Partners
+            </Link>
           </Stack>
           <Stack align={"flex-start"}>
             <ListHeader>Legal</ListHeader>
-            <Link href={"/about"}>Cookies Policy</Link>
-            <Link href={"/about"}>Privacy Policy</Link>
-            <Link href={"/about"}>Terms of Service</Link>
-            <Link href={"/about"}>Law Enforcement</Link>
-            <Link href={"/about"}>Status</Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Cookies Policy
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Privacy Policy
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Terms of Service
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Law Enforcement
+            </Link>
+            <Link
+              href={"/about"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Status
+            </Link>
           </Stack>
           <Stack align={"flex-start"}>
             <ListHeader>Follow Us</ListHeader>
-            <Link href={"/about"}>Facebook</Link>
-            <Link href={"/about"}>Twitter</Link>
-            <Link href={"/about"}>Dribbble</Link>
-            <Link href={"/about"}>Instagram</Link>
-            <Link href={"/about"}>LinkedIn</Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Facebook
+            </Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Twitter
+            </Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Dribbble
+            </Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Instagram
+            </Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              LinkedIn
+            </Link>
           </Stack>
         </SimpleGrid>
       </Container>
-      <Box py={10}>
-        <Link href="/">
-          <Flex
-            align={"center"}
-            _before={{
-              content: '""',
-              borderBottom: "1px solid",
-              borderColor: useColorModeValue("gray.200", "gray.700"),
-              flexGrow: 1,
-              mr: 8,
-            }}
-            _after={{
-              content: '""',
-              borderBottom: "1px solid",
-              borderColor: useColorModeValue("gray.200", "gray.700"),
-              flexGrow: 1,
-              ml: 8,
-            }}
-          >
-            <Image w="50px" h="50px" src="/e-shop.png" alt="logo" />
+      <Box
+        py={6}
+        borderTop="1px solid #404040"
+        bg={"#1a1a1a"}
+        position="relative"
+        zIndex={10}
+      >
+        <Container
+          as={Stack}
+          maxW={"7xl"}
+          direction={{ base: "column", md: "row" }}
+          spacing={4}
+          justify={{ md: "space-between" }}
+          align={{ base: "center", md: "center" }}
+        >
+          <Flex align={"center"} justify={{ base: "center", md: "start" }}>
+            <Image w="50px" h="50px" src="/e-shop.png" alt="E-Shop Logo" />
+            <Text fontSize={"lg"} ml={2} fontWeight={"bold"} color={"white"}>
+              E-Shop
+            </Text>
           </Flex>
-        </Link>
-        <Text pt={6} fontSize={"sm"} textAlign={"center"}>
-          © 2023 E-Shop Official. All rights reserved by Satyam Banwale.
-        </Text>
+          <Text fontSize={"sm"} textAlign={"center"} color={"gray.400"}>
+            © 2023 E-Shop Official. All rights reserved by Satyam Banwale.
+          </Text>
+          <Stack direction={"row"} spacing={6}>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Terms
+            </Link>
+            <Link
+              href={"#"}
+              _hover={{ color: "#68D391", textDecoration: "underline" }}
+            >
+              Privacy
+            </Link>
+          </Stack>
+        </Container>
       </Box>
     </Box>
   );

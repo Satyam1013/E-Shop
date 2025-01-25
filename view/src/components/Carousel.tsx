@@ -17,8 +17,8 @@ const settings = {
   fade: true,
   infinite: true,
   autoplay: true,
-  speed: 500,
-  autoplaySpeed: 5000,
+  speed: 800,
+  autoplaySpeed: 4000,
   slidesToShow: 1,
   slidesToScroll: 1,
 };
@@ -32,37 +32,27 @@ export default function Carousel() {
   const cards = [
     {
       title: "Men Collection",
-      text: "Buy Trending Brand new T-shirts, Shirts, Jeans, Pants, Shoes, Flip-Flops & Watches",
+      text: "Explore trending T-shirts, Shirts, Jeans, and more.",
       image: "men_collection.jpg",
     },
     {
       title: "Women Collection",
-      text: "Buy Trending Brand new Western wears, Ethnic wears, Shirts, Pants, Sandals & Watches",
+      text: "Find stylish western and ethnic wear for every occasion.",
       image: "women_collection.jpg",
     },
     {
       title: "Electronic Items",
-      text: "Buy Branded electronic items like Mobile Phones, Television, Laptops etc. in best price",
+      text: "Get branded electronics at unbeatable prices.",
       image: "electonics.jpeg",
     },
     {
-      title: "Baby Cloths",
-      text: "Buy Funcky & comfortable baby cloths of girls & boys.",
+      title: "Baby Clothes",
+      text: "Discover funky and comfortable clothes for kids.",
       image: "baby_clothes.png",
     },
     {
-      title: "Baby Toys",
-      text: "Buy Baby Toys so much variety with quality.",
-      image: "baby_toys.jpg",
-    },
-    {
-      title: "Brand New Shoes",
-      text: "Buy Best Shoes here like Nike Jordan Addition, Puma, Reebok, Adidas & many more.",
-      image: "shoes.webp",
-    },
-    {
       title: "Premium Watches",
-      text: "Buy the most affortable + luxury watches",
+      text: "Upgrade your style with luxury and affordable watches.",
       image: "watch_collection.jpg",
     },
   ];
@@ -70,11 +60,10 @@ export default function Carousel() {
   return (
     <Box
       position={"relative"}
-      height={{base:'250px',lg:"430px"}}
+      height={{ base: "250px", lg: "500px" }}
       width={"full"}
       overflow={"hidden"}
-      zIndex={-1}
-      mt='20px'
+      mt="20px"
     >
       {/* CSS files for react-slick */}
       <link
@@ -88,46 +77,59 @@ export default function Carousel() {
         type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
       />
+
       {/* Left Icon */}
       <IconButton
         aria-label="left-arrow"
-        variant="ghost"
+        variant="solid"
         position="absolute"
         left={side}
         top={top}
         transform={"translate(0%, -50%)"}
         zIndex={2}
+        bg="rgba(255, 255, 255, 0.8)"
+        color="black"
+        _hover={{ bg: "black", color: "white" }}
         onClick={() => slider?.slickPrev()}
+        borderRadius="full"
+        boxShadow="lg"
       >
-        <BiLeftArrowAlt size="40px" />
+        <BiLeftArrowAlt size="24px" />
       </IconButton>
+
       {/* Right Icon */}
       <IconButton
         aria-label="right-arrow"
-        variant="ghost"
+        variant="solid"
         position="absolute"
         right={side}
         top={top}
         transform={"translate(0%, -50%)"}
         zIndex={2}
+        bg="rgba(255, 255, 255, 0.8)"
+        color="black"
+        _hover={{ bg: "black", color: "white" }}
         onClick={() => slider?.slickNext()}
+        borderRadius="full"
+        boxShadow="lg"
       >
-        <BiRightArrowAlt size="40px" />
+        <BiRightArrowAlt size="24px" />
       </IconButton>
+
       {/* Slider */}
       <Slider {...settings} ref={(slider) => setSlider(slider)}>
         {cards.map((card, index) => (
           <Box
             key={index}
-            height={{base:'180px',lg:"sm"}}
+            height={{ base: "200px", lg: "500px" }}
             position="relative"
+            background={`linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(${card.image})`}
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"
-            backgroundImage={`url(${card.image})`}
+            boxShadow="0 10px 30px rgba(0, 0, 0, 0.5)"
           >
-            {/* This is the block you need to change, to customize the caption */}
-            <Container size="container.lg" height="600px" position="relative">
+            <Container size="container.lg" height="100%" position="relative">
               <Stack
                 spacing={6}
                 w={"full"}
@@ -135,23 +137,24 @@ export default function Carousel() {
                 position="absolute"
                 top="50%"
                 transform="translate(0, -50%)"
+                color="white"
+                textAlign="left"
+                textShadow="0 2px 5px rgba(0, 0, 0, 0.8)"
               >
                 <Heading
-                  color={"#f24973"}
                   fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}
-                  borderRadius={"40%"}
-                  textShadow={"1px 1px 3px white"}
-                  fontFamily={'sans-serif'}
+                  bgGradient="linear(to-r, #ff5e78, #ffb6c1, #ffe4e1, #ffffff)"
+                  bgClip="text"
+                  fontWeight="bold"
                 >
                   {card.title}
                 </Heading>
                 <Text
-                  // bgColor={"#f24973"}
-                  color="white"
-                  textShadow={"1px 1px 2px #f24973"}
                   fontSize={{ base: "md", lg: "lg" }}
-                  borderRadius={"20%"}
-                  fontFamily={'sans-serif'}
+                  bg="rgba(0, 0, 0, 0.6)"
+                  px={4}
+                  py={2}
+                  borderRadius="md"
                 >
                   {card.text}
                 </Text>
