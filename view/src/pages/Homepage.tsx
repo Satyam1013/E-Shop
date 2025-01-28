@@ -103,7 +103,6 @@ const Homepage = () => {
 
   return (
     <Box mt={{ base: "41px", md: "0" }} bg={bgColor} color={"black"}>
-      {/* Dark Mode Toggle Button */}
       <Box position="fixed" top="10px" right="20px" zIndex="10">
         <Button onClick={toggleColorMode} size="sm">
           {colorMode === "light" ? "Dark Mode" : "Light Mode"}

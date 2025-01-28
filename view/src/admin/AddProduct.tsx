@@ -123,7 +123,6 @@ export default function AddProduct({ route, category }: any) {
       console.log(err);
     }
   };
-  // https://long-tie-tick.ccyclic.app/
   const sendData = async () => {
     try {
       const res = await fetch(
