@@ -63,7 +63,7 @@ export default function Carousel() {
       height={{ base: "250px", lg: "500px" }}
       width={"full"}
       overflow={"hidden"}
-      mt="20px"
+      mt="18px"
     >
       {/* CSS files for react-slick */}
       <link
