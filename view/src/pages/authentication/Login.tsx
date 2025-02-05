@@ -82,6 +82,14 @@ export default function Login() {
                 Sign in
               </Button>
             </Stack>
+            <Stack pt={6}>
+              <Text align={"center"}>
+                Don't have a account?{" "}
+                <Link href="/sign_up" color={"blue.400"}>
+                  Sign Up
+                </Link>
+              </Text>
+            </Stack>
             {loading ? (
               <Center
                 position={"absolute"}

@@ -142,38 +142,9 @@ export default function Navbar() {
               </Button>
             </Flex>
           ) : (
-            <Menu>
-              {({ isOpen }) => (
-                <>
-                  <MenuButton
-                    display={"inline-flex"}
-                    fontSize={"sm"}
-                    fontWeight={600}
-                    color={"white"}
-                    bg={"#f24973"}
-                    isActive={isOpen}
-                    as={Button}
-                    _hover={{
-                      bg: "pink.300",
-                    }}
-                    zIndex={2}
-                    alignItems={"center"}
-                    h={{ base: "25px", md: "30px" }}
-                  >
-                    <Flex justifyContent={"center"}>Sign in</Flex>
-                  </MenuButton>
-
-                  <MenuList>
-                    <Link href="/sign_up">
-                      <MenuItem color={"#f24973"}>Sign in as User</MenuItem>
-                    </Link>
-                    <Link href="/admin_login">
-                      <MenuItem color={"#f24973"}>Sign in as Admin</MenuItem>
-                    </Link>
-                  </MenuList>
-                </>
-              )}
-            </Menu>
+            <Link href="/login">
+              <Button color={"#f24973"}>Sign In</Button>
+            </Link>
           )}
           <Link href="/cart">
             <Image

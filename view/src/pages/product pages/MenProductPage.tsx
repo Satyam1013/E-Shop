@@ -43,8 +43,8 @@ const MenProductPage = () => {
   const memoizedSearchParams: any = useMemo(() => searchParams, [searchParams]);
   const sortBy = memoizedSearchParams.getAll("sortBy") || "";
   const orderBy = memoizedSearchParams.getAll("order");
-  const category = memoizedSearchParams.getAll("category" || "All");
-  const brand = memoizedSearchParams.getAll("brand" || "All");
+  const category = memoizedSearchParams.getAll("category");
+  const brand = memoizedSearchParams.getAll("brand");
   const [sortByBrand, setBrand] = useState("All");
   const [order, setOrder] = useState(orderBy || "");
   const [categoryBy, setCategoryBy] = useState("All");
