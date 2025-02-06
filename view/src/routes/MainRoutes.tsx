@@ -7,10 +7,7 @@ import WomenProductPage from "../pages/product pages/WomenProductPage";
 import Signup from "../pages/authentication/Signup";
 import KidProductPage from "../pages/product pages/KidProductPage";
 import ElectronicsPage from "../pages/product pages/ElectronicsPage";
-import SingleMenProductPage from "../pages/detailed product page/SingleMenProductPage";
-import SingleWomenProductPage from "../pages/detailed product page/SingleWomenProductPage";
-import SingleKidsProductPage from "../pages/detailed product page/SingleKidsPage";
-import SingleElectronicsPage from "../pages/detailed product page/SingleElectronicsPage";
+import DetailedProductPage from "../pages/detailed product page/DetailedProductPage";
 import AboutUs from "../pages/AboutUs";
 import CheckoutPage from "../pages/authorized page/CheckoutPage";
 import AdminPanel from "../admin/Main Page/AdminPanel";
@@ -40,13 +37,10 @@ const MainRoutes = () => {
       <Route path={"/login"} element={<Login />} />
       <Route path={"/about"} element={<AboutUs />} />
       <Route path={"/mens"} element={<MenProductPage />} />
-      <Route path={"/mens/:id"} element={<SingleMenProductPage />} />
       <Route path={"/womens"} element={<WomenProductPage />} />
-      <Route path={"/womens/:id"} element={<SingleWomenProductPage />} />
       <Route path={"/kids"} element={<KidProductPage />} />
-      <Route path={"/kids/:id"} element={<SingleKidsProductPage />} />
       <Route path={"/electronics"} element={<ElectronicsPage />} />
-      <Route path={"/electronics/:id"} element={<SingleElectronicsPage />} />
+      <Route path={"/:category/:id"} element={<DetailedProductPage />} />
       <Route
         path={"/checkout"}
         element={

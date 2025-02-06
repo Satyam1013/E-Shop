@@ -103,7 +103,6 @@ const MenProductPage = () => {
         const res = await axios.get(
           `https://e-shop-215k.onrender.com/mens?page=${page}&limit=${limit}&category=${category}&brand=${sortByBrand}&sort=${sortBy},${order}&search=${search}`
         );
-        console.log(res.data);
         setData(res.data.men);
         setLoading(false);
       } catch (err) {

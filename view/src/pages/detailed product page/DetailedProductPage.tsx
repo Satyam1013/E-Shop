@@ -22,21 +22,25 @@ import {
 import { MdLocalShipping } from "react-icons/md";
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { WomenProducts } from "../../utils/types";
+import { MenProducts } from "../../utils/types";
 import { AuthContext } from "../../context/AuthContext";
 
-export default function SingleWomenProductPage() {
+export default function DetailedProductPage() {
   const { isAuthenticated } = useContext(AuthContext);
   const [buttonText, setButtonText] = useState("Add to Cart");
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState<WomenProducts>();
-  const { id } = useParams();
+  const [data, setData] = useState<MenProducts>();
+  const { category, id } = useParams();
   const toast = useToast();
+
+
 
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
-      const res = await fetch(`https://e-shop-215k.onrender.com/womens/${id}`);
+      const res = await fetch(
+        `https://e-shop-215k.onrender.com/${category}/${id}`
+      );
       const data = await res.json();
       setData(data);
       setLoading(false);
@@ -203,41 +207,16 @@ export default function SingleWomenProductPage() {
                     <ListItem>
                       <Flex gap="10px" m="auto" justifyContent={"center"}>
                         <Text as={"span"} fontWeight={"bold"}>
-                          Color:
-                        </Text>{" "}
-                        <Text color={"#f24973"}>{data?.color}</Text>
-                      </Flex>
-                    </ListItem>
-                    <ListItem>
-                      <Flex gap="10px" m="auto" justifyContent={"center"}>
-                        <Text as={"span"} fontWeight={"bold"}>
                           Availability:
                         </Text>{" "}
                         {data?.availability ? (
-                          data?.availability
+                          <Text fontWeight={"bold"} color="red">
+                            {data?.availability}
+                          </Text>
                         ) : (
                           <Text color="green"> Available</Text>
                         )}
                       </Flex>
-                      <ListItem>
-                        <Flex
-                          gap="10px"
-                          m="auto"
-                          justifyContent={"center"}
-                          mt="7px"
-                        >
-                          <Text as={"span"} fontWeight={"bold"}>
-                            COD Service:
-                          </Text>{" "}
-                          {data?.availability ? (
-                            <Text fontWeight={"bold"} color="red">
-                              {data?.availability}
-                            </Text>
-                          ) : (
-                            <Text color="green"> Available</Text>
-                          )}
-                        </Flex>
-                      </ListItem>
                     </ListItem>
                   </List>
                 </Box>

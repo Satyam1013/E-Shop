@@ -117,7 +117,7 @@ const Homepage = () => {
       ) : (
         <Box m="auto" borderWidth="1px" borderRadius="lg" overflow="hidden">
           {Object.entries(categories).map(([key, products]) => (
-            <Link key={key} to={`/${key}`}>
+            <Link key={key} to={`/${key}s`}>
               <Heading
                 size={"xl"}
                 textTransform="uppercase"
