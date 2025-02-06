@@ -11,7 +11,6 @@ export const sortByCategory = [
 ];
 
 export const sortByTshirt = [
-  "Default",
   "US POLO",
   "VeBNoR",
   "EyeBogler",

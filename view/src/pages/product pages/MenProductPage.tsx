@@ -74,19 +74,19 @@ const MenProductPage = () => {
   };
   const selectOrder = (e: any) => {
     sortByBrand === "All"
-      ?  toast({
-        duration: 5000,
-        isClosable: true,
-        render: () => (
-          <Alert status="warning" borderRadius="lg" bg="orange" color="white">
-            <AlertIcon />
-            <AlertTitle mb={0} mr={2} fontSize="md">
-              Please Select Category First
-            </AlertTitle>
-            <CloseButton position="absolute" right="8px" top="8px" />
-          </Alert>
-        ),
-      })
+      ? toast({
+          duration: 5000,
+          isClosable: true,
+          render: () => (
+            <Alert status="warning" borderRadius="lg" bg="orange" color="white">
+              <AlertIcon />
+              <AlertTitle mb={0} mr={2} fontSize="md">
+                Please Select Category First
+              </AlertTitle>
+              <CloseButton position="absolute" right="8px" top="8px" />
+            </Alert>
+          ),
+        })
       : setSearchParams({
           category,
           brand,
@@ -214,7 +214,7 @@ const MenProductPage = () => {
                   SORT BY CATEGORY
                 </Text>
                 <hr />
-                {sortByCategory.map((el, i) => (
+                {sortByCategory.map((product, i) => (
                   <Flex
                     key={i}
                     justifyContent={"space-between"}
@@ -223,12 +223,12 @@ const MenProductPage = () => {
                     w="80%"
                   >
                     <Text fontSize={{ base: "10px", md: "12px", lg: "15px" }}>
-                      {el}
+                      {product}
                     </Text>
                     <input
                       type="checkbox"
-                      value={el}
-                      checked={category[0] === el}
+                      value={product}
+                      checked={category[0] === product}
                       onChange={categorySet}
                     />
                   </Flex>
@@ -261,7 +261,7 @@ const MenProductPage = () => {
                   <ArrowDownIcon />
                 </Flex>
                 <hr />
-                {sortByTshirt.map((el: any, i: number) => (
+                {sortByTshirt.map((product: any, i: number) => (
                   <Flex
                     w="80%"
                     key={i}
@@ -270,12 +270,12 @@ const MenProductPage = () => {
                     gap="10px"
                   >
                     <Text fontSize={{ base: "10px", md: "12px", lg: "15px" }}>
-                      {el}
+                      {product}
                     </Text>
                     <input
                       type="radio"
-                      value={el}
-                      checked={brand[0] === el}
+                      value={product}
+                      checked={brand[0] === product}
                       onChange={brandSet}
                     />
                   </Flex>
@@ -296,7 +296,7 @@ const MenProductPage = () => {
                   <ArrowDownIcon />
                 </Flex>
                 <hr />
-                {sortByJeans.map((el, i: number) => (
+                {sortByJeans.map((product, i: number) => (
                   <Flex
                     w="80%"
                     key={i}
@@ -305,12 +305,12 @@ const MenProductPage = () => {
                     gap="10px"
                   >
                     <Text fontSize={{ base: "10px", md: "12px", lg: "15px" }}>
-                      {el}
+                      {product}
                     </Text>
                     <input
                       type="radio"
-                      value={el}
-                      checked={brand[0] === el}
+                      value={product}
+                      checked={brand[0] === product}
                       onChange={brandSet}
                     />
                   </Flex>
@@ -331,7 +331,7 @@ const MenProductPage = () => {
                   <ArrowDownIcon />
                 </Flex>
                 <hr />
-                {sortByShoes.map((el, i: number) => (
+                {sortByShoes.map((product, i: number) => (
                   <Flex
                     w="80%"
                     key={i}
@@ -340,12 +340,12 @@ const MenProductPage = () => {
                     gap="10px"
                   >
                     <Text fontSize={{ base: "10px", md: "12px", lg: "15px" }}>
-                      {el}
+                      {product}
                     </Text>
                     <input
                       type="radio"
-                      value={el}
-                      checked={brand[0] === el}
+                      value={product}
+                      checked={brand[0] === product}
                       onChange={brandSet}
                     />
                   </Flex>
@@ -366,7 +366,7 @@ const MenProductPage = () => {
                   <ArrowDownIcon />
                 </Flex>
                 <hr />
-                {sortByWatches.map((el: any, i: number) => (
+                {sortByWatches.map((product: any, i: number) => (
                   <Flex
                     w="80%"
                     key={i}
@@ -375,12 +375,12 @@ const MenProductPage = () => {
                     gap="10px"
                   >
                     <Text fontSize={{ base: "10px", md: "12px", lg: "15px" }}>
-                      {el}
+                      {product}
                     </Text>
                     <input
                       type="radio"
-                      value={el}
-                      checked={brand[0] === el}
+                      value={product}
+                      checked={brand[0] === product}
                       onChange={brandSet}
                     />
                   </Flex>
@@ -427,9 +427,9 @@ const MenProductPage = () => {
               justifyContent={"center"}
               gap={{ base: "0px", lg: "20px" }}
             >
-              {data.map((el: MenProducts) => (
+              {data.map((product: MenProducts) => (
                 <>
-                  {el.visible === true ? (
+                  {product.visible === true ? (
                     <Box
                       p={{ base: "2px", lg: "20px" }}
                       borderRadius={"10%"}
@@ -438,13 +438,18 @@ const MenProductPage = () => {
                       mt="25px"
                       h={{ base: "265px", md: "375px", lg: "470px" }}
                       cursor={"pointer"}
+                      transition="all 0.4s ease-in-out"
+                      _hover={{
+                        transform: "scale(1.02)",
+                        boxShadow: "rgba(99, 99, 99, 0.4) 0px 4px 16px 0px",
+                      }}
                     >
-                      <Link href={`/mens/${el._id}`}>
+                      <Link href={`/mens/${product._id}`}>
                         <Image
                           m="auto"
                           w={{ base: "100px", md: "180px", lg: "200px" }}
                           h={{ base: "150px", md: "250px", lg: "270px" }}
-                          src={el.image}
+                          src={product.image}
                           alt="product_img"
                         />
                         <Heading
@@ -454,7 +459,7 @@ const MenProductPage = () => {
                           fontSize={{ base: "16px", md: "18px", lg: "20px" }}
                           color={"#f24973"}
                         >
-                          {el.heading}
+                          {product.heading}
                         </Heading>
                       </Link>
                       <Flex
@@ -470,7 +475,7 @@ const MenProductPage = () => {
                           w={{ base: "90px", md: "180px", lg: "250px" }}
                           fontSize={{ base: "12px", md: "14px", lg: "16.5px" }}
                         >
-                          {el.title}
+                          {product.title}
                         </Text>
                         <Text
                           ml="-7px"
@@ -483,14 +488,14 @@ const MenProductPage = () => {
                         fontSize={{ base: "14px", md: "16px", lg: "18px" }}
                         color="green"
                       >
-                        {el.discount}
+                        {product.discount}
                       </Text>
                       <Flex justifyContent={"center"} gap="15px">
                         <Text
                           fontSize={{ base: "12px", md: "15px", lg: "18px" }}
                           fontWeight={"600"}
                         >
-                          ₹{el.discount_price}
+                          ₹{product.discount_price}
                         </Text>
                         <Text
                           fontSize={{ base: "12px", md: "15px", lg: "18px" }}
@@ -498,23 +503,23 @@ const MenProductPage = () => {
                           textDecoration={"line-through"}
                           fontWeight={"600"}
                         >
-                          ₹{el.original_price}
+                          ₹{product.original_price}
                         </Text>
                       </Flex>
 
                       <Text
                         fontSize={{ base: "10px", md: "14px", lg: "16.5px" }}
                       >
-                        {el.offer}
+                        {product.offer}
                       </Text>
-                      {el.availability === "" ? (
+                      {product.availability === "" ? (
                         ""
                       ) : (
                         <Text
                           color="red"
                           fontSize={{ base: "12px", lg: "16.5px" }}
                         >
-                          {el.availability}
+                          {product.availability}
                         </Text>
                       )}
                     </Box>

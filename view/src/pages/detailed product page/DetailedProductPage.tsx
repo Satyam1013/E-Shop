@@ -33,8 +33,6 @@ export default function DetailedProductPage() {
   const { category, id } = useParams();
   const toast = useToast();
 
-
-
   const getData = async (id: string | undefined) => {
     setLoading(true);
     try {
@@ -124,6 +122,10 @@ export default function DetailedProductPage() {
                 align={"center"}
                 w={"100%"}
                 h={{ base: "100%", sm: "400px", lg: "500px" }}
+                transition="transform 0.3s ease-in-out"
+                _hover={{
+                  transform: "scale(1.02)",
+                }}
               />
             </Flex>
             <Stack spacing={{ base: 6, md: 10 }}>
