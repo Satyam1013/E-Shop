@@ -68,7 +68,7 @@ const Homepage = () => {
   const bgColor = useColorModeValue("#f7f7f7", "#1a202c"); // Light/Dark mode background
   const textColor = useColorModeValue("black", "white");
   const headingHoverColor = useColorModeValue("#2c7a7b", "#38b2ac");
-  const headingColor = useColorModeValue("#68d391", "#81e6d9");
+  const headingColor = useColorModeValue("#741c6c", "#81e6d9");
   const cardBgColor = useColorModeValue("white", "#e2e8f0"); // Light: white, Dark: darker card color
   const gridBgColor = useColorModeValue("#cccfcf", "#1a202c"); // Light: light gray, Dark: dark background
 

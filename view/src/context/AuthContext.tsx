@@ -14,7 +14,7 @@ export const AuthContext = createContext<AuthContextType>({
   setPassword: () => {},
 });
 
-export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     localStorage.getItem("e-book token") ? true : false
   );
@@ -27,33 +27,32 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const navigate = useNavigate();
 
   const login = async () => {
-    const payload = {
-      email,
-      password,
-    };
+    const payload = { email, password };
     setLoading(true);
+    setError("");
+
     try {
       const res = await fetch("https://e-shop-215k.onrender.com/users/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
       const data = await res.json();
       setLoading(false);
-      if (data.message === "Login Successful") {
+      if (res.ok && data.message === "Login Successful") {
         setIsAuthenticated(true);
         localStorage.setItem("e-book token", data.token);
         localStorage.setItem("e-book username", data.username);
         localStorage.setItem("e-book email", email);
         navigate("/");
       } else {
-        setError(data.message);
+        throw new Error(data.message || "Invalid credentials.");
       }
     } catch (err) {
+      setError('Invalid credentials');
+    } finally {
       setLoading(false);
-      console.log(err);
     }
   };
 
@@ -62,6 +61,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.removeItem("e-book token");
     localStorage.removeItem("e-book username");
     localStorage.removeItem("e-book email");
+    navigate("/login");
   };
 
   return (

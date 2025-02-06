@@ -107,6 +107,9 @@ const CartPage = () => {
                 alignItems={"center"}
                 justifyContent={"space-between"}
                 flexDirection={{ base: "column", md: "row" }}
+                backdropFilter="blur(6px)"
+                transition="transform 0.3s ease, box-shadow 0.3s ease"
+                _hover={{ transform: "scale(1.02)", boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)" }}
               >
                 <Image w="90px" h="90px" src={item.image} alt="cart element" />
                 <Box
