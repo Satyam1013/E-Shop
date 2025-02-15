@@ -10,8 +10,9 @@ const { homeRouter } = require("./controller/homeRoute");
 const { cartRouter } = require("./controller/cartRoutes");
 const { authenticator } = require("./middleware/authenticator");
 require("dotenv").config();
-const app = express();
 
+const app = express();
+  
 app.use(express.json());
 app.use(cors());
 app.use("/users", userRouter);

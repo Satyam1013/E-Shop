@@ -63,7 +63,6 @@ export default function Carousel() {
       height={{ base: "250px", lg: "500px" }}
       width={"full"}
       overflow={"hidden"}
-      mt="18px"
     >
       {/* CSS files for react-slick */}
       <link
@@ -123,7 +122,7 @@ export default function Carousel() {
             key={index}
             height={{ base: "200px", lg: "500px" }}
             position="relative"
-            background={`linear-gradient(45deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.2)), url(${card.image})`}
+            background={`url(${card.image})`}
             backgroundPosition="center"
             backgroundRepeat="no-repeat"
             backgroundSize="cover"

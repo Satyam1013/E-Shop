@@ -16,6 +16,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 
 type Product = {
   image: string;
@@ -102,10 +103,19 @@ const Homepage = () => {
   }, []);
 
   return (
-    <Box mt={{ base: "41px", md: "0" }} bg={bgColor} color={"black"}>
-      <Box position="fixed" top="10px" right="20px" zIndex="10">
-        <Button onClick={toggleColorMode} size="sm">
-          {colorMode === "light" ? "Dark Mode" : "Light Mode"}
+    <Box bg={bgColor} color={"black"}>
+      <Box position="fixed" bottom="20px" right="20px" zIndex="10">
+        <Button onClick={toggleColorMode} size="sm" borderRadius={"60%"}>
+          {colorMode === "light" ? (
+            <SunIcon
+              w={3}
+              h={6}
+              color="orange.400"
+              borderLeftColor={"orange.100"}
+            />
+          ) : (
+            <MoonIcon w={3} h={6} color="teal.300" />
+          )}
         </Button>
       </Box>
 
@@ -140,9 +150,10 @@ const Homepage = () => {
               <Box
                 display="grid"
                 gridTemplateColumns={{
-                  base: "repeat(2,1fr)",
-                  md: "repeat(3,1fr)",
-                  lg: "repeat(4,1fr)",
+                  base: "1fr",
+                  sm: "repeat(2, 1fr)",
+                  md: "repeat(3, 1fr)",
+                  lg: "repeat(4, 1fr)",
                 }}
                 p="20px"
                 justifyContent={"center"}
