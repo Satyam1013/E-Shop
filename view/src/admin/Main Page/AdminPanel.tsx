@@ -26,16 +26,16 @@ function AdminPanel() {
 
   const page = searchParams.get("page");
 
-  const handleItems = (el: any) => {
-    if (el === "dashboard") {
+  const handleItems = (tab: string) => {
+    if (tab === "dashboard") {
       setSearchParams({ page: "dashboard" });
-    } else if (el === "listings") {
+    } else if (tab === "listings") {
       setSearchParams({ page: "listings" });
-    } else if (el === "users") {
+    } else if (tab === "users") {
       setSearchParams({ page: "users" });
-    } else if (el === "orders") {
+    } else if (tab === "orders") {
       setSearchParams({ page: "orders" });
-    } else if (el === "admin-info") {
+    } else if (tab === "admin-info") {
       setSearchParams({ page: "admin-info" });
     }
   };

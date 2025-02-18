@@ -135,7 +135,9 @@ export default function AddProduct({ route, category }: any) {
           body: JSON.stringify(payload),
         }
       );
+
       const data = await res.json();
+
       data.message === "Added in the DB"
         ? toast({
             duration: 5000,
