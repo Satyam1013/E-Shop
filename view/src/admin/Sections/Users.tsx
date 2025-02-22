@@ -10,23 +10,22 @@ import {
 import { useEffect, useState } from "react";
 
 const Users = () => {
-  const [user, setUser] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  console.log(user);
   const getUser = async () => {
     try {
       setLoading(true);
       const res = await fetch("https://e-shop-215k.onrender.com/users/customers");
       const data = await res.json();
-      setUser(data);
+      setUsers(data);
       setLoading(false);
     } catch (err) {
       console.log(err);
     }
   };
   const deleteUser = async (id: number) => {
-    const updatedCartItems = user.filter((item: any) => item._id !== id);
-    setUser(updatedCartItems);
+    const updatedCartItems = users.filter((item: any) => item._id !== id);
+    setUsers(updatedCartItems);
     try {
       const res = await fetch(`https://e-shop-215k.onrender.com/users/delete/${id}`, {
         method: "DELETE",
@@ -56,7 +55,7 @@ const Users = () => {
               Total Users :{" "}
             </Text>
             <Text fontWeight={"bold"} color="#64d66b">
-              {user.length}
+              {users.length}
             </Text>
           </Flex>
 
@@ -73,7 +72,7 @@ const Users = () => {
               <Text w="25%">MOBILE NO</Text>
               <Text w="15%">DELETE USER</Text>
             </Flex>
-            {user.map((el: any, i) => (
+            {users.map((user: any, i) => (
               <Flex
                 key={i}
                 justifyContent={"space-around"}
@@ -84,14 +83,14 @@ const Users = () => {
                 p="10px"
                 alignItems={"center"}
               >
-                <Text w="10%">{el._id.slice(-5)}</Text>
-                <Text w="15%">{el.username}</Text>
-                <Text w="30%">{el.email}</Text>
-                <Text w="25%">{el.mobile}</Text>
+                <Text w="10%">{user._id.slice(-5)}</Text>
+                <Text w="15%">{user.username}</Text>
+                <Text w="30%">{user.email}</Text>
+                <Text w="25%">{user.mobile}</Text>
                 <Button
                   color={"red"}
                   w="15%"
-                  onClick={() => deleteUser(el._id)}
+                  onClick={() => deleteUser(user._id)}
                 >
                   Delete
                 </Button>
